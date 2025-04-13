@@ -1,6 +1,6 @@
 package hotel.classes;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -10,7 +10,7 @@ public class Booking {
     
        
     private UserInfo customer;
-    ArrayList<Room> rooms;
+    List<Room> rooms;
     
     
     
@@ -26,7 +26,7 @@ public class Booking {
     public Booking()
     {
         customer = new UserInfo();
-        rooms = new ArrayList<>();
+        rooms = new List<>();
         bookingId = -1;
         bookingType = "Reserved";
         
@@ -78,7 +78,7 @@ public class Booking {
         this.person = person;
     }
 
-    public ArrayList<Room> getRooms() {
+    public List<Room> getRooms() {
         return rooms;
     }
     

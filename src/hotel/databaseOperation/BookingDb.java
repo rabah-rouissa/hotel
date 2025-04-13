@@ -1,16 +1,16 @@
 package hotel.databaseOperation;
 
+import hotel.classes.Booking;
+import hotel.classes.Order;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-import hotel.classes.Booking;
-import hotel.classes.Order;
-
 public class BookingDb {
-
+private static final Logger logger = Logger.getLogger(BookingDb.class.getName());
     Connection conn;
     PreparedStatement statement = null;
     ResultSet result = null;
@@ -36,7 +36,6 @@ public class BookingDb {
 
                 // ^^^ 0 for has_checked_out
                 statement = conn.prepareStatement(insertQuery);
-                //System.out.println(">>>>>>>>>> " + insertQuery);
                 statement.execute();
 
                 JOptionPane.showMessageDialog(null, "successfully inserted new Booking");
@@ -52,7 +51,7 @@ public class BookingDb {
 
     public ResultSet getBookingInformation() {
         try {
-            String query = "select * from booking";
+            String query = "select booking_id, customer_id, booking_room, guests, check_in, check_out, booking_type, has_checked_out from booking";
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
         } catch (SQLException ex) {
@@ -77,8 +76,9 @@ public class BookingDb {
     public ResultSet bookingsReadyForOrder(String roomName) {
         try {
            
-            String query = "select booking_id,booking_room,name from booking join userInfo on booking.customer_id = userInfo.user_id where booking_room like '%" + roomName + "%' and has_checked_out = 0 order by booking_id desc";
-            System.out.println(query);
+            String query = "select booking_id,booking_room,name from booking join userInfo on booking.customer_id = userInfo.user_id where booking_room like '%"
+            + roomName + "%' and has_checked_out = 0 order by booking_id desc";
+            logger.info("Query: " + query);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
 
@@ -112,14 +112,13 @@ public class BookingDb {
         try {
 
             String query = "select price from booking join room on booking_room = room_no join roomType on type= room_class where booking_id=" + bookingId;
-            System.out.println(query);
+            logger.info("Query (getRoomPrice): " + query);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
             price = result.getInt("price");
-           
-            System.out.println(price);
+   
+            logger.info("Price: " + price);
             flushAll();
-
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString() + "\n error coming from returning price getRoomPrice,bookingDB");
         }
@@ -132,7 +131,7 @@ public class BookingDb {
             String insertOrder = "insert into orderItem('booking_id','item_food','price','quantity','total') values(" + order.getBookingId() + ",'" + order.getFoodItem() + "'," + order.getPrice() + "," + order.getQuantity() + "," + order.getTotal() + ")";
 
             statement = conn.prepareStatement(insertOrder);
-            System.out.println(">>>>>>>>>> " + insertOrder);
+            logger.info("Inserting Order: " + insertOrder);
             statement.execute();
 
             JOptionPane.showMessageDialog(null, "successfully inserted a new Order");
@@ -150,7 +149,7 @@ public class BookingDb {
         try {
 
             String query = "select * from orderItem where booking_id=" + bookingId;
-            System.out.println(query);
+            logger.info("Query (getAllPaymentInfo): " + query);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
           
