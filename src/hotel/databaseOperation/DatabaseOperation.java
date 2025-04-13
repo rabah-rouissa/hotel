@@ -101,7 +101,7 @@ public class DatabaseOperation {
 
     public ResultSet getAllCustomer() {
         try {
-            String query = "select * from userInfo";
+            String query = "select * from userInfo ORDER BY name";
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
         } catch (SQLException ex) {

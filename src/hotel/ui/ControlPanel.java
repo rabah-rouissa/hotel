@@ -40,14 +40,14 @@ public class ControlPanel extends javax.swing.JFrame {
     /**
      * Creates new form ControlPanel
      */
-    Vector<String> customerList = new Vector();
-    DatabaseOperation db = new DatabaseOperation();
+    Vector<String> customerList = new Vector<String>();
+    transient DatabaseOperation db = new DatabaseOperation();
     CustomerDb customerdb = new CustomerDb();
-    Booking booking;
+    transient Booking booking;
     BookingDb bookingdb = new BookingDb();
     boolean existingCustomer = false;
     UserInfo user;
-    ResultSet result;
+    transient ResultSet result;
 
     public ControlPanel() {
         
@@ -56,17 +56,10 @@ public class ControlPanel extends javax.swing.JFrame {
         searchCustomerHelper();
         AutoCompleteDecorator.decorate(comboUsers);
         dateCheckIn.setDate(new Date());
-        
-        
-       
-       
-
     }
 
     public void populateWithBookingData() {
         result = bookingdb.getBookingInformation();
-        
-        CustomCellRenderer customRenderer = new CustomCellRenderer();
         bookingdb.flushAll();
     }
 
@@ -85,7 +78,7 @@ public class ControlPanel extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnRoomUp = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        roomsList = new javax.swing.JList();
+        roomsList = new javax.swing.JList<String>();
         jSeparator5 = new javax.swing.JSeparator();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -102,7 +95,7 @@ public class ControlPanel extends javax.swing.JFrame {
         tfAddress = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        comboReservationType = new javax.swing.JComboBox();
+        comboReservationType = new javax.swing.JComboBox<String>();
         jLabel3 = new javax.swing.JLabel();
         btnSaveBooking = new javax.swing.JButton();
         tfRooms = new javax.swing.JTextField();
@@ -111,7 +104,7 @@ public class ControlPanel extends javax.swing.JFrame {
         tfCustomerId = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        comboUsers = new javax.swing.JComboBox();
+        comboUsers = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
@@ -135,12 +128,7 @@ public class ControlPanel extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(230, 231, 232));
 
         btnRoomUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/AddRoomButton.png"))); // NOI18N
-        btnRoomUp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_room_upActionPerformed(evt);
-            }
-        });
-
+        btnRoomUp.addActionListener(evt -> btn_room_upActionPerformed(evt));
         roomsList.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
         roomsList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };

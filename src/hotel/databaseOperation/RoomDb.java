@@ -16,11 +16,13 @@ import javax.swing.JOptionPane;
  */
 public class RoomDb {
     private static final Logger logger = Logger.getLogger(RoomDb.class.getName());
+    private static final String LOG_PREFIX = ">>>>>>>>>> ";
+
     Connection conn = DataBaseConnection.connectTODB();
     PreparedStatement statement = null;
     ResultSet result = null;
 
-     public void insertRoom(Room room) {
+    public void insertRoom(Room room) {
         try {
             String insertQuery = "insert into room('room_no','bed_number','tv','wifi','gizer','phone','room_class','meal_id')"
                     + " values('"
@@ -33,7 +35,7 @@ public class RoomDb {
                     + ",'" + room.getRoomClass().getRoomType() + "'"
                     + ")";
 
-                    logger.log(Level.INFO, "Insert Room Query: {0}", room.getRoomClass().getRoomType());
+            logger.log(Level.INFO, LOG_PREFIX + "Insert Room Query: {0}", room.getRoomClass().getRoomType());
             statement = conn.prepareStatement(insertQuery);
 
             statement.execute();
@@ -42,9 +44,7 @@ public class RoomDb {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString() + "\n" + "InsertQuery of Room Class Failed");
-        }
-        finally
-        {
+        } finally {
             flushStatmentOnly();
         }
     }
@@ -57,43 +57,39 @@ public class RoomDb {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString() + "\n error coming from returning all Room DB Operation");
         }
-        
+
         return result;
     }
-    
-    public int getNoOfRooms()
-    {
+
+    public int getNoOfRooms() {
         int rooms = -1;
         try {
             String query = "select count(room_no)  as noRoom from room";
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
-            while(result.next())
-            {
+            while (result.next()) {
                 rooms = result.getInt("noRoom");
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString() + "\n error coming count Room DB Operation");
         }
-        
+
         return rooms;
     }
-    
-    public ResultSet getAllRoomNames()
-    {
-         try {
+
+    public ResultSet getAllRoomNames() {
+        try {
             String query = "select room_no from room";
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString() + "\n error coming from returning all Room_No  ROOM DB Operation");
         }
-        
+
         return result;
     }
 
     public void deleteRoom(int roomId) {
-
         try {
             String deleteQuery = "delete from room where room_id=" + roomId;
             statement = conn.prepareStatement(deleteQuery);
@@ -101,28 +97,23 @@ public class RoomDb {
             JOptionPane.showMessageDialog(null, "Deleted room");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString() + "\n" + "Delete query room Failed");
-        }
-        finally
-        {
+        } finally {
             flushStatmentOnly();
         }
     }
-    
-    public void updateRoom(Room room)
-    {
-         try {
-            String updateQuery ="update room set room_no = '"
-                    +room.getRoomNo()+"', bed_number="
-                    +room.getBedNumber()+", tv = '"
-                    +boolToString(room.isHasTV())+"', wifi = '"
-                    +boolToString(room.isHasWIFI())+"',gizer = '"
-                    +boolToString(room.isHasGizer())+"', phone = '"
-                    +boolToString(room.isHasPhone())+"', room_class= '"
-                    +room.getRoomClass().getRoomType()+"', meal_id = "
-                    ;
-                    
 
-            logger.log(Level.INFO, "Update Room Query: {0}", updateQuery);
+    public void updateRoom(Room room) {
+        try {
+            String updateQuery = "update room set room_no = '"
+                    + room.getRoomNo() + "', bed_number="
+                    + room.getBedNumber() + ", tv = '"
+                    + boolToString(room.isHasTV()) + "', wifi = '"
+                    + boolToString(room.isHasWIFI()) + "',gizer = '"
+                    + boolToString(room.isHasGizer()) + "', phone = '"
+                    + boolToString(room.isHasPhone()) + "', room_class= '"
+                    + room.getRoomClass().getRoomType() + "', meal_id = ";
+
+            logger.log(Level.INFO, LOG_PREFIX + "Update Room Query: {0}", updateQuery);
             statement = conn.prepareStatement(updateQuery);
 
             statement.execute();
@@ -130,23 +121,20 @@ public class RoomDb {
             JOptionPane.showMessageDialog(null, "successfully updated a room");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString() + "\n" + "Update query Failed");
+        } finally {
+            flushStatmentOnly();
         }
-         finally
-         {
-             flushStatmentOnly();
-         }
-
     }
 
     public String boolToString(boolean value) {
         return value ? "true" : "false";
     }
-    
+
     public void insertRoomType(RoomFare roomType) {
         try {
             String insertRoomTypeQuery = "insert into roomType values('" + roomType.getRoomType() + "'," + roomType.getPricePerDay() + ")";
 
-        logger.log(Level.INFO, "Insert Room Type Query: {0}", insertRoomTypeQuery);
+            logger.log(Level.INFO, LOG_PREFIX + "Insert Room Type Query: {0}", insertRoomTypeQuery);
 
             statement = conn.prepareStatement(insertRoomTypeQuery);
 
@@ -156,9 +144,7 @@ public class RoomDb {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString() + "\n" + "InsertQuery Failed");
-        }
-        finally
-        {
+        } finally {
             flushStatmentOnly();
         }
     }
@@ -187,38 +173,26 @@ public class RoomDb {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString() + "\n" + "UpdateQuery Failed");
-        }
-        finally
-        {
+        } finally {
             flushStatmentOnly();
         }
     }
-    
-    public void flushAll()
-    {
-        {
-                        try
-                        {
-                            statement.close();
-                            result.close();
-                        }
-                        catch(SQLException ex){
-                            logger.log(Level.SEVERE, "Error closing DB resources", ex);
-                         }
-                    }
+
+    public void flushAll() {
+        try {
+            statement.close();
+            result.close();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error closing DB resources", ex);
+        }
     }
-    
-    private void flushStatmentOnly()
-    {
-        {
-                        try
-                        {
-                            statement.close();
-                        }
-                        catch(SQLException ex){
-                            logger.log(Level.SEVERE, "Error closing statement", ex);
-                    }
-                    }
+
+    private void flushStatmentOnly() {
+        try {
+            statement.close();
+        } catch (SQLException ex) {
+            logger.log(Level.SEVERE, "Error closing statement", ex);
+        }
     }
 
 }

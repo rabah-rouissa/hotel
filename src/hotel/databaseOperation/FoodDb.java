@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author Faysal Ahmed
  */
 public class FoodDb {
-    
+    private static final Logger logger = Logger.getLogger(FoodDb.class.getName());
     Connection conn = DataBaseConnection.connectTODB();
     PreparedStatement statement = null;
     ResultSet result = null;
@@ -38,7 +40,7 @@ public class FoodDb {
 
     public ResultSet getFoods() {
         try {
-            String query = "select * from food";
+            String query = "select * from food ORDER BY name";
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
         } catch (SQLException ex) {
@@ -93,7 +95,8 @@ public class FoodDb {
                             result.close();
                         }
                         catch(SQLException ex)
-                        {System.err.print(ex.toString()+" >> CLOSING DB");}
+                        {logger.log(Level.SEVERE, "Error closing DB", ex);
+}
                     }
     }
     
@@ -105,7 +108,7 @@ public class FoodDb {
                             statement.close();
                         }
                         catch(SQLException ex)
-                        {System.err.print(ex.toString()+" >> CLOSING DB");}
+                        {logger.log(Level.SEVERE, "Error closing DB", ex);}
                     }
     }
     
