@@ -40,7 +40,7 @@ public class ControlPanel extends javax.swing.JFrame {
     /**
      * Creates new form ControlPanel
      */
-    Vector<String> customerList = new Vector<String>();
+    Vector<String> customerList = new Vector<>();
     transient DatabaseOperation db = new DatabaseOperation();
     CustomerDb customerdb = new CustomerDb();
     transient Booking booking;
@@ -128,13 +128,20 @@ public class ControlPanel extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(230, 231, 232));
 
         btnRoomUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/AddRoomButton.png"))); // NOI18N
-        btnRoomUp.addActionListener(evt -> btn_room_upActionPerformed(evt));
+        btnRoomUp.addActionListener(this::btn_room_upActionPerformed);
         roomsList.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
-        roomsList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        roomsList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3" };
+            @Override
+            public int getSize() {
+                return strings.length;
+            }
+            @Override
+            public String getElementAt(int i) {
+                return strings[i];
+            }
         });
+        
         roomsList.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
         roomsList.setVisibleRowCount(1);
         jScrollPane1.setViewportView(roomsList);
@@ -192,27 +199,23 @@ public class ControlPanel extends javax.swing.JFrame {
         jLabel6.setText("Guests");
 
         dateCheckIn.setIcon(null);
-        dateCheckIn.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                date_checkInPropertyChange(evt);
-            }
-        });
-
+        dateCheckIn.addPropertyChangeListener(this::date_checkInPropertyChange);
         jLabel5.setText("Rooms");
 
         tfContact.setToolTipText("digits only");
         tfContact.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
+            @Override
+                public void keyTyped(java.awt.event.KeyEvent evt) {
                 tf_contactKeyTyped(evt);
-            }
+                }
+
         });
 
         jLabel7.setText("Check in");
 
         jLabel8.setText("Check Out");
 
-        comboReservationType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "On Spot", "Paid reservation", "reservation" }));
-
+        comboReservationType.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "On Spot", "Paid reservation", "reservation" }));
         jLabel3.setText("Address");
 
         btnSaveBooking.setBackground(new java.awt.Color(0, 167, 157));
@@ -220,18 +223,15 @@ public class ControlPanel extends javax.swing.JFrame {
         btnSaveBooking.setText("Save");
         btnSaveBooking.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 167, 157)));
         btnSaveBooking.setBorderPainted(false);
-        btnSaveBooking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_saveBookingActionPerformed(evt);
-            }
-        });
-
+        btnSaveBooking.addActionListener(this::btn_saveBookingActionPerformed);
         tfRooms.setEditable(false);
 
         tfGuestNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tf_guestNoKeyTyped(evt);
+            tf_guestNoKeyTyped(evt);
             }
+
         });
 
         jLabel10.setText("ID");
