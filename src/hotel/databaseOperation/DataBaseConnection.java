@@ -13,7 +13,9 @@ import java.sql.DriverManager;
 
 
 public class DataBaseConnection {
-
+    private DataBaseConnection() {
+        throw new UnsupportedOperationException("Utility class");
+    }
 	static String url= "jdbc:mysql://localhost:3306/hotel?useUnicode=true" + 
 			"&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + 
 			"serverTimezone=UTC" ;

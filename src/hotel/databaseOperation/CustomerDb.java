@@ -5,19 +5,22 @@
  */
 package hotel.databaseOperation;
 
+import hotel.classes.UserInfo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
-import hotel.classes.UserInfo;
 
 /**
  *
  * @author Faysal Ahmed
  */
 public class CustomerDb {
+    private static final Logger logger = Logger.getLogger(CustomerDb.class.getName());
+
     Connection conn;
     PreparedStatement statement = null;
     ResultSet result = null;
@@ -98,7 +101,7 @@ public class CustomerDb {
 
     public ResultSet getAllCustomer() {
         try {
-            String query = "select * from userInfo";
+            String query = "SELECT name, address, phone, type FROM userInfo";
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
         } catch (SQLException ex) {
@@ -116,7 +119,7 @@ public class CustomerDb {
                             statement.close();
                         }
                         catch(SQLException ex)
-                        {System.err.print(ex.toString()+" >> CLOSING DB");}
+                        {logger.log(Level.SEVERE, "Error closing PreparedStatement", ex);}
                     }
     }
      public void flushAll()
@@ -128,7 +131,7 @@ public class CustomerDb {
                             result.close();
                         }
                         catch(SQLException ex)
-                        {System.err.print(ex.toString()+" >> CLOSING DB");}
+                        {logger.log(Level.SEVERE, "Error closing DB resources in flushAll()", ex);;}
                     }
     }
 

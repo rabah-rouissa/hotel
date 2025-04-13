@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
@@ -78,7 +79,7 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
            
             String query = "select booking_id,booking_room,name from booking join userInfo on booking.customer_id = userInfo.user_id where booking_room like '%"
             + roomName + "%' and has_checked_out = 0 order by booking_id desc";
-            logger.info("Query: " + query);
+            logger.log(Level.INFO, "Query: {0}", query);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
 
@@ -112,12 +113,12 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
         try {
 
             String query = "select price from booking join room on booking_room = room_no join roomType on type= room_class where booking_id=" + bookingId;
-            logger.info("Query (getRoomPrice): " + query);
+            logger.log(Level.INFO, "Query (getRoomPrice): {0}", query);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
             price = result.getInt("price");
    
-            logger.info("Price: " + price);
+            logger.log(Level.INFO, "Price: {0}", price);
             flushAll();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.toString() + "\n error coming from returning price getRoomPrice,bookingDB");
@@ -131,7 +132,7 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
             String insertOrder = "insert into orderItem('booking_id','item_food','price','quantity','total') values(" + order.getBookingId() + ",'" + order.getFoodItem() + "'," + order.getPrice() + "," + order.getQuantity() + "," + order.getTotal() + ")";
 
             statement = conn.prepareStatement(insertOrder);
-            logger.info("Inserting Order: " + insertOrder);
+            logger.log(Level.INFO, "Inserting Order: {0}", insertOrder);
             statement.execute();
 
             JOptionPane.showMessageDialog(null, "successfully inserted a new Order");
@@ -149,7 +150,7 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
         try {
 
             String query = "select * from orderItem where booking_id=" + bookingId;
-            logger.info("Query (getAllPaymentInfo): " + query);
+            logger.log(Level.INFO, "Query (getAllPaymentInfo): {0}", query);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
           
@@ -166,7 +167,7 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
                 statement.close();
                 result.close();
             } catch (SQLException ex) {
-                System.err.print(ex.toString() + " >> CLOSING DB");
+                logger.log(Level.SEVERE, "Error closing DB (flushStatementOnly): {0}", ex.toString());
             }
         }
     }
@@ -177,7 +178,7 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
                 statement.close();
                 
             } catch (SQLException ex) {
-                System.err.print(ex.toString() + " >> CLOSING DB");
+                logger.log(Level.SEVERE, "Error closing DB (flushStatementOnly): {0}", ex.toString());
             }
         }
     }
