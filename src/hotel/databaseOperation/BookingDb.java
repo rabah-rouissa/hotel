@@ -1,7 +1,9 @@
-package hotel.databaseoperation;
+package hotel.databaseOperation;
 
 import hotel.classes.Booking;
 import hotel.classes.Order;
+
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class BookingDb {
+public class BookingDb implements Serializable {
 private static final Logger logger = Logger.getLogger(BookingDb.class.getName());
     Connection conn;
     PreparedStatement statement = null;

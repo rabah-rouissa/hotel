@@ -7,9 +7,10 @@
 package hotel.ui;
 
 import hotel.classes.Order;
-import hotel.databaseoperation.BookingDb;
+import hotel.databaseOperation.BookingDb; // Ensure this import is correct and the class exists in the specified package
+import hotel.databaseOperation.FoodDb;
+import hotel.databaseOperation.ItemDb;
 import hotel.databaseoperation.FoodDb;
-import hotel.databaseoperation.ItemDb;
 
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
@@ -17,6 +18,7 @@ import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
@@ -28,15 +30,15 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
  *
  * @author Faysal
  */
-public class OrderPanel extends javax.swing.JDialog {
+public class OrderPanel extends javax.swing.JDialog  {
 
     /**
      * Creates new form OrderPanel
      */
     
-    Vector<String> bookingList = new Vector();
-    BookingDb db = new BookingDb();
-    ResultSet result;
+    ArrayList<String> bookingList = new ArrayList<>();
+     BookingDb  db = new BookingDb(); 
+    transient ResultSet result;
     FoodDb foodDb = new FoodDb();
     ItemDb itemDb = new ItemDb();
     public OrderPanel(java.awt.Frame parent, boolean modal) {
