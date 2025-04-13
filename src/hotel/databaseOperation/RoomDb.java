@@ -1,19 +1,21 @@
-package hotel.databaseOperation;
+package hotel.databaseoperation;
 
+import hotel.classes.Room;
+import hotel.classes.RoomFare;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
-import hotel.classes.Room;
-import hotel.classes.RoomFare;
 
 /**
  *
  * @author Faysal Ahmed
  */
 public class RoomDb {
+    private static final Logger logger = Logger.getLogger(RoomDb.class.getName());
     Connection conn = DataBaseConnection.connectTODB();
     PreparedStatement statement = null;
     ResultSet result = null;
@@ -31,7 +33,7 @@ public class RoomDb {
                     + ",'" + room.getRoomClass().getRoomType() + "'"
                     + ")";
 
-            System.out.println(">>>>>>>>>> "+ room.getRoomClass().getRoomType());
+                    logger.log(Level.INFO, "Insert Room Query: {0}", room.getRoomClass().getRoomType());
             statement = conn.prepareStatement(insertQuery);
 
             statement.execute();
@@ -49,7 +51,7 @@ public class RoomDb {
 
     public ResultSet getRooms() {
         try {
-            String query = "select * from room";
+            String query = "select room_id, room_no, bed_number, tv, wifi, gizer, phone, room_class, meal_id from room";
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
         } catch (SQLException ex) {
@@ -120,7 +122,7 @@ public class RoomDb {
                     ;
                     
 
-            System.out.println(">>>>>>>>>> "+ updateQuery);
+            logger.log(Level.INFO, "Update Room Query: {0}", updateQuery);
             statement = conn.prepareStatement(updateQuery);
 
             statement.execute();
@@ -144,7 +146,7 @@ public class RoomDb {
         try {
             String insertRoomTypeQuery = "insert into roomType values('" + roomType.getRoomType() + "'," + roomType.getPricePerDay() + ")";
 
-            System.out.println(">>>>>>>>>> " + insertRoomTypeQuery);
+        logger.log(Level.INFO, "Insert Room Type Query: {0}", insertRoomTypeQuery);
 
             statement = conn.prepareStatement(insertRoomTypeQuery);
 
@@ -163,7 +165,7 @@ public class RoomDb {
 
     public ResultSet getRoomType() {
         try {
-            String query = "select * from roomType";
+            String query = "select type, price from roomType";
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
         } catch (SQLException ex) {
@@ -200,8 +202,9 @@ public class RoomDb {
                             statement.close();
                             result.close();
                         }
-                        catch(SQLException ex)
-                        {System.err.print(ex.toString()+" >> CLOSING DB");}
+                        catch(SQLException ex){
+                            logger.log(Level.SEVERE, "Error closing DB resources", ex);
+                         }
                     }
     }
     
@@ -212,8 +215,9 @@ public class RoomDb {
                         {
                             statement.close();
                         }
-                        catch(SQLException ex)
-                        {System.err.print(ex.toString()+" >> CLOSING DB");}
+                        catch(SQLException ex){
+                            logger.log(Level.SEVERE, "Error closing statement", ex);
+                    }
                     }
     }
 

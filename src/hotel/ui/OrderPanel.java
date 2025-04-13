@@ -7,10 +7,9 @@
 package hotel.ui;
 
 import hotel.classes.Order;
-import hotel.databaseOperation.BookingDb;
-
-import hotel.databaseOperation.FoodDb;
-import hotel.databaseOperation.ItemDb;
+import hotel.databaseoperation.BookingDb;
+import hotel.databaseoperation.FoodDb;
+import hotel.databaseoperation.ItemDb;
 
 import java.awt.Color;
 import java.awt.event.KeyAdapter;

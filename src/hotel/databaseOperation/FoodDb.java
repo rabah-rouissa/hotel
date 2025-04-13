@@ -1,12 +1,11 @@
-package hotel.databaseOperation;
+package hotel.databaseoperation;
 
+import hotel.classes.Food;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-
-import hotel.classes.Food;
 
 /**
  *

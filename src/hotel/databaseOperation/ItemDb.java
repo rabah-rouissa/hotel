@@ -3,21 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotel.databaseOperation;
+package hotel.databaseoperation;
 
+import hotel.classes.Item;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
-import hotel.classes.Item;
 
 /**
  *
  * @author Faysal Ahmed
  */
 public class ItemDb {
+    private static final Logger logger = Logger.getLogger(ItemDb.class.getName());
     Connection conn = DataBaseConnection.connectTODB();
     PreparedStatement statement = null;
     ResultSet result = null;
@@ -45,7 +47,6 @@ public class ItemDb {
         try {
             String updateFood = "update food set name= '" + item.getItemName() + "', price= " + item.getPrice() + "description = '" + item.getDescription() + "' where item_id = " + item.getItemId();
 
-            // System.out.println(">>>>>>>>>> "+ insertRoomTypeQuery);
             statement = conn.prepareStatement(updateFood);
 
             statement.execute();
@@ -63,7 +64,7 @@ public class ItemDb {
 
     public ResultSet getItems() {
         try {
-            String query = "select * from item";
+            String query = "select item_id, name, description, price from item";
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
         } catch (SQLException ex) {
@@ -97,7 +98,7 @@ public class ItemDb {
                             result.close();
                         }
                         catch(SQLException ex)
-                        {System.err.print(ex.toString()+" >> CLOSING DB");}
+                        {logger.log(Level.SEVERE, "Error closing database resources", ex);}
                     }
     }
     
@@ -108,8 +109,9 @@ public class ItemDb {
                         {
                             statement.close();
                         }
-                        catch(SQLException ex)
-                        {System.err.print(ex.toString()+" >> CLOSING DB");}
+                        catch(SQLException ex){
+                            logger.log(Level.SEVERE, "Error closing statement", ex);
+                        }
                     }
     }
     

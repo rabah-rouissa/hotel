@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hotel.databaseOperation;
+package hotel.databaseoperation;
 
 import hotel.classes.UserInfo;
 import java.sql.Connection;

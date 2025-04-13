@@ -6,7 +6,7 @@
 package hotel.ui;
 
 import hotel.classes.Order;
-import hotel.databaseOperation.BookingDb;
+import hotel.databaseoperation.BookingDb;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

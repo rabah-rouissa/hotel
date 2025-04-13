@@ -1,8 +1,8 @@
 package hotel.ui;
 
 import hotel.classes.UserInfo;
-import hotel.databaseOperation.CustomerDb;
-import hotel.databaseOperation.DatabaseOperation;
+import hotel.databaseoperation.CustomerDb;
+import hotel.databaseoperation.DatabaseOperation;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;

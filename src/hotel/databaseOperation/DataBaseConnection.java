@@ -1,8 +1,9 @@
-package hotel.databaseOperation;
+package hotel.databaseoperation;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -13,6 +14,7 @@ import java.sql.DriverManager;
 
 
 public class DataBaseConnection {
+    private static final Logger logger = Logger.getLogger(DataBaseConnection.class.getName());
     private DataBaseConnection() {
         throw new UnsupportedOperationException("Utility class");
     }
@@ -24,12 +26,10 @@ public class DataBaseConnection {
             Class.forName("com.mysql.cj.jdbc.Driver");
             return  DriverManager.getConnection(url,"root","root");
         } catch (Exception e) {
-        	
-            System.err.println("Connection error");
+            logger.log(Level.SEVERE, "Connection error", e);
             e.printStackTrace();
             return null;
         }
-      
     }
     
 }

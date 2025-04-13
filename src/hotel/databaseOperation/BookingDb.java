@@ -1,4 +1,4 @@
-package hotel.databaseOperation;
+package hotel.databaseoperation;
 
 import hotel.classes.Booking;
 import hotel.classes.Order;
@@ -79,7 +79,7 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
            
             String query = "select booking_id,booking_room,name from booking join userInfo on booking.customer_id = userInfo.user_id where booking_room like '%"
             + roomName + "%' and has_checked_out = 0 order by booking_id desc";
-            logger.log(Level.INFO, "Query: {0}", query);
+            logger.log(Level.INFO, "Executing bookingsReadyForOrder with roomName LIKE: {0}", roomName);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
 
@@ -113,11 +113,10 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
         try {
 
             String query = "select price from booking join room on booking_room = room_no join roomType on type= room_class where booking_id=" + bookingId;
-            logger.log(Level.INFO, "Query (getRoomPrice): {0}", query);
+            logger.log(Level.INFO, "Fetching room price for booking ID: {0}", bookingId);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
             price = result.getInt("price");
-   
             logger.log(Level.INFO, "Price: {0}", price);
             flushAll();
         } catch (SQLException ex) {
@@ -132,7 +131,8 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
             String insertOrder = "insert into orderItem('booking_id','item_food','price','quantity','total') values(" + order.getBookingId() + ",'" + order.getFoodItem() + "'," + order.getPrice() + "," + order.getQuantity() + "," + order.getTotal() + ")";
 
             statement = conn.prepareStatement(insertOrder);
-            logger.log(Level.INFO, "Inserting Order: {0}", insertOrder);
+            logger.log(Level.INFO, "Inserting order for booking ID: {0}, item: {1}, qty: {2}",
+            new Object[]{order.getBookingId(), order.getFoodItem(), order.getQuantity()});        
             statement.execute();
 
             JOptionPane.showMessageDialog(null, "successfully inserted a new Order");
@@ -150,7 +150,7 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
         try {
 
             String query = "select * from orderItem where booking_id=" + bookingId;
-            logger.log(Level.INFO, "Query (getAllPaymentInfo): {0}", query);
+            logger.log(Level.INFO, "Fetching all payment info for booking ID: {0}", bookingId);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
           
@@ -167,7 +167,7 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
                 statement.close();
                 result.close();
             } catch (SQLException ex) {
-                logger.log(Level.SEVERE, "Error closing DB (flushStatementOnly): {0}", ex.toString());
+                logger.log(Level.SEVERE, "Error closing DB in flushAll", ex);
             }
         }
     }
@@ -178,7 +178,7 @@ private static final Logger logger = Logger.getLogger(BookingDb.class.getName())
                 statement.close();
                 
             } catch (SQLException ex) {
-                logger.log(Level.SEVERE, "Error closing DB (flushStatementOnly): {0}", ex.toString());
+                logger.log(Level.SEVERE, "Error closing DB in flushStatementOnly", ex);
             }
         }
     }

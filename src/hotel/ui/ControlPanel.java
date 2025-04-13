@@ -7,10 +7,10 @@ package hotel.ui;
 
 import hotel.classes.Booking;
 import hotel.classes.UserInfo;
-import hotel.databaseOperation.BookingDb;
-import hotel.databaseOperation.CustomerDb;
-import hotel.databaseOperation.DatabaseOperation;
-import hotel.tableModel.CustomCellRenderer;
+import hotel.databaseoperation.BookingDb;
+import hotel.databaseoperation.CustomerDb;
+import hotel.databaseoperation.DatabaseOperation;
+import hotel.tablemodel.CustomCellRenderer;
 
 import java.awt.Color;
 import java.awt.event.KeyAdapter;

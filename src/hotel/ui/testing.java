@@ -9,8 +9,8 @@ import java.awt.Color;
 import java.util.Date;
 import org.joda.time.DateTime;
 
-import hotel.tableModel.BookingTableModel;
-import hotel.tableModel.CustomCellRenderer;
+import hotel.tablemodel.BookingTableModel;
+import hotel.tablemodel.CustomCellRenderer;
 
 /**
  *

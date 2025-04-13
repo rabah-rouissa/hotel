@@ -1,9 +1,12 @@
-package hotel.databaseOperation;
+package hotel.databaseoperation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import I3.DatabaseOperation.DataBaseConnection;
 
@@ -14,7 +17,7 @@ import hotel.classes.UserInfo;
  * @author Faysal Ahmed
  */
 public class DatabaseOperation {
-
+    private static final Logger logger = Logger.getLogger(DatabaseOperation.class.getName());
     Connection conn = DataBaseConnection.connectTODB();
     PreparedStatement statement = null;
     ResultSet result = null;
@@ -55,7 +58,7 @@ public class DatabaseOperation {
                             result.close();
                         }
                         catch(SQLException ex)
-                        {System.err.print(ex.toString()+" >> CLOSING DB");}
+                        {logger.log(Level.SEVERE, "Error closing DB", ex);}
                     }
     }
 
@@ -146,10 +149,9 @@ public class DatabaseOperation {
 
     public ResultSet getAvailableRooms(long checkInTime)
     {
-       try {
-           
+       try {   
           String query = "SELECT room_no FROM room LEFT OUTER JOIN booking ON room.room_no = booking.booking_room WHERE booking.booking_room is null or "+checkInTime+"< booking.check_in " +"or booking.check_out <"+checkInTime+" group by room.room_no  order by room_no ";
-            System.out.println(query);
+          logger.log(Level.INFO, "Executing: {0}", query);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
         } catch (SQLException ex) {
@@ -185,8 +187,7 @@ public class DatabaseOperation {
     { int id = -1;
         try {
             String query = "select user_id from userInfo where name='"+user.getName()+"' and phone ='"+user.getPhoneNo()+"'";
-            
-            System.out.println(query +" <<<");
+            logger.log(Level.INFO, "Executing: {0}", query);
             statement = conn.prepareStatement(query);
             result = statement.executeQuery();
             
@@ -209,7 +210,7 @@ public class DatabaseOperation {
                             statement.close();
                         }
                         catch(SQLException ex)
-                        {System.err.print(ex.toString()+" >> CLOSING DB");}
+                        {logger.log(Level.SEVERE, "Error closing statement", ex);}
                     }
     }
 }

@@ -6,7 +6,7 @@
 package hotel.ui;
 
 import hotel.classes.Food;
-import hotel.databaseOperation.FoodDb;
+import hotel.databaseoperation.FoodDb;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;

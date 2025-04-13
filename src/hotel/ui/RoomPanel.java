@@ -7,7 +7,7 @@ package hotel.ui;
 
 import hotel.classes.Room;
 import hotel.classes.RoomFare;
-import hotel.databaseOperation.RoomDb;
+import hotel.databaseoperation.RoomDb;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;

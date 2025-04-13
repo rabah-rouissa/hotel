@@ -7,8 +7,7 @@ package hotel.ui;
 
 
 import hotel.classes.Item;
-
-import hotel.databaseOperation.ItemDb;
+import hotel.databaseoperation.ItemDb;
 
 import java.awt.Color;
 
