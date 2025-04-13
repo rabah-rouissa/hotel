@@ -1,17 +1,17 @@
 package hotel.classes;
+import java.io.Serializable;
 
 /**
  *
  * @author Faysal Ahmed
  */
-public class RoomFare {
-    
-  
+public class RoomFare implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private String roomType;
     private int pricePerDay;
 
-  
-  
     public String getRoomType() {
         return roomType;
     }
@@ -27,8 +27,4 @@ public class RoomFare {
     public void setPricePerDay(int pricePerDay) {
         this.pricePerDay = pricePerDay;
     }
-    
-    
-    
-    
 }

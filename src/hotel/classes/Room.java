@@ -1,11 +1,14 @@
 package hotel.classes;
 
+import java.io.Serializable;
 
 /**
  *
  * @author Faysal Ahmed
  */
-public class Room {
+public class Room implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private int roomId;
     private String roomNo;
     private int bedNumber;

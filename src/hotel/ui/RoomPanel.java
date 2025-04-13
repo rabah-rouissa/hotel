@@ -33,10 +33,10 @@ public class RoomPanel extends javax.swing.JDialog {
     RoomFare roomType = new RoomFare();
     Room room =new Room(""); 
     
-    ResultSet result;
+    transient ResultSet result;
     ArrayList<String> roomClass = new ArrayList<>();
     
-    RoomDb roomdb = new RoomDb();
+    transient RoomDb roomdb = new RoomDb();
     public RoomPanel(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
