@@ -366,7 +366,7 @@ public class ControlPanel extends javax.swing.JFrame {
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setMargin(new java.awt.Insets(2, 15, 15, 14));
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(evt -> jButton1ActionPerformed(evt));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
         jToolBar1.add(jButton1);
         jToolBar1.add(jSeparator3);
 
@@ -377,7 +377,7 @@ public class ControlPanel extends javax.swing.JFrame {
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setMargin(new java.awt.Insets(2, 15, 15, 14));
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton2.addActionListener(evt -> jButton2ActionPerformed(evt));
+        jButton2.addActionListener(this::jButton2ActionPerformed);
         jToolBar1.add(jButton2);
         jToolBar1.add(jSeparator4);
 
