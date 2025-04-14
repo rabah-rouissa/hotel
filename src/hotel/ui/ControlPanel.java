@@ -398,7 +398,7 @@ public class ControlPanel extends javax.swing.JFrame {
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setMargin(new java.awt.Insets(2, 15, 15, 14));
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton5.addActionListener(this::jButton5ActionPerformed);jButton4.addActionListener(this::jButton4ActionPerformed);
+        jButton5.addActionListener(this::jButton5ActionPerformed);
         jToolBar1.add(jButton5);
         jToolBar1.add(jSeparator2);
 
