@@ -388,7 +388,7 @@ public class ControlPanel extends javax.swing.JFrame {
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton4.setMargin(new java.awt.Insets(2, 15, 15, 14));
         jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton4.addActionListener(evt -> jButton4ActionPerformed(evt));
+        jButton4.addActionListener(this::jButton4ActionPerformed);
         jToolBar1.add(jButton4);
         jToolBar1.add(jSeparator1);
 
@@ -398,7 +398,7 @@ public class ControlPanel extends javax.swing.JFrame {
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setMargin(new java.awt.Insets(2, 15, 15, 14));
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton5.addActionListener(evt -> jButton5ActionPerformed(evt));
+        jButton5.addActionListener(this::jButton5ActionPerformed);jButton4.addActionListener(this::jButton4ActionPerformed);
         jToolBar1.add(jButton5);
         jToolBar1.add(jSeparator2);
 
@@ -407,7 +407,7 @@ public class ControlPanel extends javax.swing.JFrame {
         jButton7.setFocusable(false);
         jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton7.addActionListener(evt -> jButton7ActionPerformed(evt));
+        jButton7.addActionListener(this::jButton7ActionPerformed);
         jToolBar1.add(jButton7);
         jToolBar1.add(jSeparator8);
 
@@ -416,7 +416,7 @@ public class ControlPanel extends javax.swing.JFrame {
         jButton6.setFocusable(false);
         jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton6.addActionListener(evt -> jButton6ActionPerformed(evt));
+        jButton6.addActionListener(this::jButton6ActionPerformed);
         jToolBar1.add(jButton6);
         jToolBar1.add(jSeparator6);
 
